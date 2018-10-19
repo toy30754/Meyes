@@ -7,7 +7,7 @@
 
 ##  C# Script 簡介
 ### AddPicture
-### 輸入圖片
+#### 輸入圖片
 使用套件**NativeGallery**\
 套件來源:https://github.com/yasirkula/UnityNativeGallery \
 其中NativeGallery.cs需修改**Read/Write Enabled**
@@ -44,7 +44,7 @@
     }
 ```
 
-### 切割圖片
+#### 切割圖片
 重點於切割圖片的column行 row列與圖片的格式 Inspector中的**Read/Write Enabled** 必須打勾\
 將原圖切割好存入destTex陣列後轉輸出為pic(sprite)陣列中，最後並設定好整體圖片的到大小。
 
@@ -79,7 +79,7 @@
     }
 ```
 
-### 檢查拼圖是否正確
+#### 檢查拼圖是否正確
 
 ```C#
 void Update()
