@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Old_Dropdown_month : MonoBehaviour {
+public class Dropdown_month : MonoBehaviour {
 
     List<string> month = new List<string>() {"January","February","March","April","May","June","July","August","September","October","November","December" };
    

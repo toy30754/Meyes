@@ -58,8 +58,8 @@
      <Compile Include="Assets\meyes_control.cs" />
      <Compile Include="Assets\Script\AddPicture.cs" />
      <Compile Include="Assets\Script\CameraMode.cs" />
+     <Compile Include="Assets\Script\Dropdown_month.cs" />
      <Compile Include="Assets\Script\graphDrawControl.cs" />
-     <Compile Include="Assets\Script\Old_Dropdown_month.cs" />
      <Compile Include="Assets\Script\puzzle_data.cs" />
      <Compile Include="Assets\Script\ScreenShot.cs" />
      <Compile Include="Assets\Script\ScreenshotManager.cs" />

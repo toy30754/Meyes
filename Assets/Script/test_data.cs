@@ -18,8 +18,6 @@ public class test_data : MonoBehaviour {
     int page = 0;
     // Use this for initialization
     void Start () {
-
-      
     }
 
  

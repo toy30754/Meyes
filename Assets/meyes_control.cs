@@ -97,7 +97,7 @@ public class meyes_control : MonoBehaviour
         p1_2_1.SetActive(false);
         p1_3.SetActive(true);
         temp = 0; //計時器歸0
-        timerStr = true;
+        timerStr = true;//計時器開啟
     }
 
     public void trun_shot_page()
@@ -200,7 +200,7 @@ public class meyes_control : MonoBehaviour
                     result.GetComponent<UnityEngine.UI.Image>().sprite = result1;
                 }
                 p2_3.SetActive(true);
-
+                //寫入dataBase
                 StreamReader file = new StreamReader(System.IO.Path.Combine(Application.persistentDataPath, "test"));
                 string loadJson = file.ReadToEnd();
                 file.Close();
@@ -275,14 +275,18 @@ public class meyes_control : MonoBehaviour
 
     public void save_puzzle(TimeSpan timespan,String path)
     {
+        //開啟檔案位置
         StreamReader file = new StreamReader(System.IO.Path.Combine(Application.persistentDataPath, "puzzle"));
+        //讀取檔案
         string loadJson = file.ReadToEnd();
         file.Close();
         playerState_puzzle loadData = new playerState_puzzle();
+        //將string 轉為 Json格式
         loadData = JsonUtility.FromJson<playerState_puzzle>(loadJson);
         playerState_puzzle myPlayer1 = new playerState_puzzle();
         myPlayer1 = loadData;
         DateTime Now = DateTime.Now;
+        //使用 . Add功能加入
         myPlayer1.realtime_year.Add(Now.Year);
         myPlayer1.realtime_month.Add(Now.Month);
         myPlayer1.realtime_day.Add(Now.Day);
@@ -292,7 +296,9 @@ public class meyes_control : MonoBehaviour
         myPlayer1.image_path.Add(path);
         myPlayer1.puzzle_row.Add(AddData.row);
         myPlayer1.puzzle_column.Add(AddData.column);
+        //將Json 轉為 string
         string saveString = JsonUtility.ToJson(myPlayer1);
+        //寫入檔案
         StreamWriter file1 = new StreamWriter(System.IO.Path.Combine(Application.persistentDataPath, "puzzle"));
         file1.Write(saveString);
         file1.Close();
@@ -301,7 +307,9 @@ public class meyes_control : MonoBehaviour
     void Start()
     {
         AddData = GameObject.Find("Manager").GetComponent<AddPicture>();
+        //輸出路徑
         print(System.IO.Path.Combine(Application.persistentDataPath, "test"));
+        //心智測驗json
         if (File.Exists(System.IO.Path.Combine(Application.persistentDataPath, "test")))
         {
             print("file exist");
@@ -314,6 +322,7 @@ public class meyes_control : MonoBehaviour
             file.Write(saveString);
             file.Close();
         }
+        //拼圖json
         if (File.Exists(System.IO.Path.Combine(Application.persistentDataPath, "puzzle")))
         {
             print("file exist");
@@ -373,6 +382,5 @@ public class meyes_control : MonoBehaviour
         public List<int> realtime_year = new List<int>();
         public List<int> realtime_month = new List<int>();
         public List<int> realtime_day = new List<int>();
-
     }
 }
