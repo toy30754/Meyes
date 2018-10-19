@@ -273,6 +273,7 @@ void Update()
     }
 ```
 
+### test_data.cs 與 puzzle_data.cs 畫直方圖
 
 ### Vuforia_focus.cs
 用來對焦Vuforia Camera，放置於ARCamera底下
