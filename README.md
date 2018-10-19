@@ -7,8 +7,37 @@
 
 ##  C# Script 簡介
 ### AddPicture
+### 輸入圖片
+
+```C#
+ private void PickImage(int maxSize)
+    {
+        //找尋路徑
+        NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) =>
+        {
+            if (path != null)
+            {
+                // Create Texture from selected image 目前尚未研究maxSize值得變化，目前設定都為512
+                texture = NativeGallery.LoadImageAtPath(path, maxSize);
+                //紀錄圖片的路徑，存到DataBase
+                image_path = path;
+                //找不到圖片
+                if (texture == null)
+                {
+                    Debug.Log("Couldn't load texture from " + path);
+                    return;
+                }
+                //進行切割圖片
+                cutting(texture);
+
+            }
+        }, "Select a PNG image", "image/png", maxSize);
+
+        Debug.Log("Permission result: " + permission);
+    }
 ```
-切割圖片
+### 切割圖片
+```C#
     public void cutting(Texture2D sourceTex)
     {
         //初始化
@@ -38,5 +67,8 @@
         }
     }
 ```
-重點於切割圖片的column行 row列
+重點於切割圖片的column行 row列與圖片的格式 Inspector中的**Read/Write Enabled** 必須打勾 
 將原圖切割好存入destTex陣列後轉輸出為pic(sprite)陣列中，最後並設定好整體圖片的到大小。
+
+
+
