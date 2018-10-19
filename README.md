@@ -67,7 +67,7 @@
         }
     }
 ```
-重點於切割圖片的column行 row列與圖片的格式 Inspector中的**Read/Write Enabled** 必須打勾 
+重點於切割圖片的column行 row列與圖片的格式 Inspector中的**Read/Write Enabled** 必須打勾\
 將原圖切割好存入destTex陣列後轉輸出為pic(sprite)陣列中，最後並設定好整體圖片的到大小。
 
 
