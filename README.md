@@ -10,7 +10,7 @@
 ### 輸入圖片
 使用套件**NativeGallery**\
 套件來源:https://github.com/yasirkula/UnityNativeGallery \
-其中需修改**Read/Write Enabled**
+其中NativeGallery.cs需修改**Read/Write Enabled**
 ```
 /*更改此區markTextureNonReadable為false*/
     public static Texture2D LoadImageAtPath( string imagePath, int maxSize = -1, bool markTextureNonReadable = false,
