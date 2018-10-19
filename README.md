@@ -274,6 +274,13 @@ void Update()
 ```
 
 ### test_data.cs 與 puzzle_data.cs 畫直方圖
+重新讀取資料後繪製直方圖\
+使用sizeDelta\
+鎖定物件中心點為最地部，調整Height
+```C#
+ bar[i- 7*page].GetComponent<RectTransform>().sizeDelta = new Vector2(70, myPlayer1.grade[i]*70);
+```
+
 
 ### Vuforia_focus.cs
 用來對焦Vuforia Camera，放置於ARCamera底下
