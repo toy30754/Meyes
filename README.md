@@ -7,6 +7,7 @@
 
 ##  C# Script 簡介
 ### AddPicture.cs
+讀取圖片 切割圖片 檢查拼圖是否完成
 #### 輸入圖片
 使用套件**NativeGallery**\
 套件來源:https://github.com/yasirkula/UnityNativeGallery \
@@ -147,6 +148,131 @@ void Update()
         }
     }
 ```
+### meyes_control.cs
+版控 計時器 寫入DataBase 心智測驗
+#### 心智測驗
+```C#
+    public void next_topic()
+    {
+        p2_2.SetActive(false);
+        if (j < 2)
+        {
+            yes1.SetActive(true);
+            yes2.SetActive(false);
+            no1.SetActive(true);
+            no2.SetActive(false);
+            i += 1;
+            if (i < 8)
+            {
+                mText.text = topic[i];
+                k += j;
+                j = 2;
+            }
+            if (i == 8)
+            {
+                k += j; //多這 一行
+                p2_1.SetActive(false);
+                p2_2.SetActive(false);
+                print(k + "   111111");
+                if (k >=  2)
+                {
+                    result.GetComponent<UnityEngine.UI.Image>().sprite = result2;
+                }
+                else
+                {
+                    result.GetComponent<UnityEngine.UI.Image>().sprite = result1;
+                }
+                p2_3.SetActive(true);
+                //寫入dataBase
+                StreamReader file = new StreamReader(System.IO.Path.Combine(Application.persistentDataPath, "test"));
+                string loadJson = file.ReadToEnd();
+                file.Close();
+                playerState_test loadData = new playerState_test();
+                loadData = JsonUtility.FromJson<playerState_test>(loadJson);
+                playerState_test myPlayer1 = new playerState_test();
+                myPlayer1 = loadData;
+                DateTime Now = DateTime.Now;
+                myPlayer1.realtime_year.Add(Now.Year);
+                myPlayer1.realtime_month.Add(Now.Month);
+                myPlayer1.realtime_day.Add(Now.Day);
+                myPlayer1.grade.Add(k);
+
+                string saveString = JsonUtility.ToJson(myPlayer1);
+                StreamWriter file1 = new StreamWriter(System.IO.Path.Combine(Application.persistentDataPath, "test"));
+                file1.Write(saveString);
+                file1.Close();
+            }
+        }
+    }
+```
+
+#### DataBase寫入json
+在Start時需先檢測是否有此json，否則創建。
+```C#
+//拼圖測驗
+ if (File.Exists(System.IO.Path.Combine(Application.persistentDataPath, "puzzle")))
+        {
+            print("file exist");
+        }else 
+        {
+            print("file not exist");
+            playerState_test myPlayer1 = new playerState_test();
+            string saveString = JsonUtility.ToJson(myPlayer1);
+            StreamWriter file = new StreamWriter(System.IO.Path.Combine(Application.persistentDataPath, "puzzle"));
+            file.Write(saveString);
+            file.Close();
+        }
+```
+創建DataBase格式(json格式)
+```C#
+ public class playerState_puzzle
+    {
+        public List<int> cost_time_hour = new List<int>();
+        public List<int> puzzle_row = new List<int>();
+        public List<int> puzzle_column = new List<int>();
+        public List<int> cost_time_min = new List<int>();
+        public List<int> cost_time_sec = new List<int>();
+        public List<String> image_path = new List<String>();
+        public List<int> realtime_year = new List<int>();
+        public List<int> realtime_month = new List<int>();
+        public List<int> realtime_day = new List<int>();
+    }
+```
+開檔讀檔 寫入
+
+```C#
+  public void save_puzzle(TimeSpan timespan,String path)
+    {
+        //開啟檔案位置
+        StreamReader file = new StreamReader(System.IO.Path.Combine(Application.persistentDataPath, "puzzle"));
+        //讀取檔案
+        string loadJson = file.ReadToEnd();
+        file.Close();
+        playerState_puzzle loadData = new playerState_puzzle();
+        //將string 轉為 Json格式
+        loadData = JsonUtility.FromJson<playerState_puzzle>(loadJson);
+        playerState_puzzle myPlayer1 = new playerState_puzzle();
+        myPlayer1 = loadData;
+        DateTime Now = DateTime.Now;
+        //使用 . Add功能加入
+        myPlayer1.realtime_year.Add(Now.Year);
+        myPlayer1.realtime_month.Add(Now.Month);
+        myPlayer1.realtime_day.Add(Now.Day);
+        myPlayer1.cost_time_hour.Add(timespan.Hours);
+        myPlayer1.cost_time_min.Add(timespan.Minutes);
+        myPlayer1.cost_time_sec.Add(timespan.Seconds);
+        myPlayer1.image_path.Add(path);
+        myPlayer1.puzzle_row.Add(AddData.row);
+        myPlayer1.puzzle_column.Add(AddData.column);
+        //將Json 轉為 string
+        string saveString = JsonUtility.ToJson(myPlayer1);
+        //寫入檔案
+        StreamWriter file1 = new StreamWriter(System.IO.Path.Combine(Application.persistentDataPath, "puzzle"));
+        file1.Write(saveString);
+        file1.Close();
+    }
+```
+
 
 ### Vuforia_focus.cs
 用來對焦Vuforia Camera，放置於ARCamera底下
