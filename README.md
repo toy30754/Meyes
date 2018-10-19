@@ -150,7 +150,7 @@ void Update()
 
 ### Vuforia_focus.cs
 用來對焦Vuforia Camera，放置於ARCamera底下
-```
+```C#
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
